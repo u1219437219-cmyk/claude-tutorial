@@ -1,0 +1,13 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo \"Reminder: summarize user-visible changes, validation steps, and remaining UI/interaction risks.\""
+        }
+      ]
+    }
+  ]
+}

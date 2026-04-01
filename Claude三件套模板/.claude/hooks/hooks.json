@@ -1,0 +1,13 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo \"Reminder: summarize what changed, what was validated, and what residual risks remain.\""
+        }
+      ]
+    }
+  ]
+}

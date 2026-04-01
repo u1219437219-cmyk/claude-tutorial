@@ -1,0 +1,13 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo \"Reminder: summarize frontend impact, backend impact, validation steps, and remaining cross-stack risks.\""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo \"Reminder: summarize contract impact, validation steps, and remaining data/compatibility risks.\""
+        }
+      ]
+    }
+  ]
+}
