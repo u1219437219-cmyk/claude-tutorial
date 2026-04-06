@@ -17,6 +17,40 @@
 4. 前后端的 agents 分开命名
 5. 避免同名冲突
 
+这套模板本质上是在搭一个适合全栈项目协作的 `harness`，不是在“创造一个 agent 本体”。
+
+可以把它理解成：
+
+- 模型本身负责理解、推理和执行
+- 这套模板负责提供项目环境、规则、边界、工具入口和验证方式
+
+所以它的重点不是堆越来越多流程，而是让项目上下文、前后端分工、技能分层和验证链路变得更稳定。
+
+## 能力分层
+
+这套模板建议把 Claude 全栈协作理解成 5 层：
+
+1. `Command / Prompt` 层
+   负责提供当前任务入口，比如“做一个跨前后端需求”“帮我 review 这次改动”“先出计划再实现”。
+2. `Agent` 层
+   负责角色分工，比如 `frontend-implementer`、`backend-reviewer`、`frontend-debugger`。
+3. `Skill` 层
+   负责具体工作方法和口径，比如 `frontend-feature`、`backend-bugfix`、`frontend-review`、`frontend-design`。
+4. `Plugin / Tool` 层
+   负责专项增强，比如 `superpowers` 管流程，`planning-with-files` 管计划文件，`context7` 管官方文档，`security-guidance` 管安全提醒，`code-review` 管 PR 复查。
+5. `CLAUDE.md` / 项目规则层
+   负责项目目标、目录结构、技术栈、常用命令、前后端边界、默认执行顺序和输出要求。
+
+推荐理解方式是：
+
+- `Command / Prompt` 决定这次要做什么
+- `Agent` 决定由谁来做
+- `Skill` 决定怎么做
+- `Plugin / Tool` 决定可以借哪些外部能力
+- `CLAUDE.md` 决定在这个项目里必须遵守什么规则
+
+这也是全栈模板和外部插件最推荐的配合方式：流程和专项能力放在外层，项目规则和前后端边界留在项目内。
+
 ## 包含内容
 
 1. `CLAUDE.md`
@@ -27,13 +61,14 @@
 6. `.claude/skills/frontend-feature/SKILL.md`
 7. `.claude/skills/backend-feature/SKILL.md`
 8. `.claude/skills/frontend-design/SKILL.md`
-9. `.claude/agents/frontend-implementer.md`
-10. `.claude/agents/backend-implementer.md`
-11. `.claude/agents/frontend-reviewer.md`
-12. `.claude/agents/backend-reviewer.md`
-13. `.claude/agents/frontend-debugger.md`
-14. `.claude/agents/backend-debugger.md`
-15. `.claude/hooks/hooks.json`
+9. `.claude/skills/webapp-testing/SKILL.md`
+10. `.claude/agents/frontend-implementer.md`
+11. `.claude/agents/backend-implementer.md`
+12. `.claude/agents/frontend-reviewer.md`
+13. `.claude/agents/backend-reviewer.md`
+14. `.claude/agents/frontend-debugger.md`
+15. `.claude/agents/backend-debugger.md`
+16. `.claude/hooks/hooks.json`
 
 ## 推荐使用方式
 
@@ -60,12 +95,30 @@
 
 - 先按通用规则分析影响范围
 - 再拆成前端部分和后端部分分别推进
+- 如果需要验证真实页面链路、联调结果或关键交互流程，补用 `webapp-testing`
 
 ### 和 Superpowers 搭配使用
 
 - `superpowers` 负责流程，比如 brainstorming、writing-plans、test-driven-development、code review、worktree 和分代理执行
 - 这个全栈版模板负责项目上下文和前后端边界，比如目录结构、常用命令、前端 skill、后端 skill、agent 分工
 - 两者一起用时，可以理解成：`superpowers` 管方法，这个模板管项目细节
+
+## 默认编排方式
+
+推荐把这套全栈模板理解成一条固定编排链路：
+
+1. 用自然语言描述任务，作为入口
+2. 由流程型能力先决定方法，比如 `superpowers`
+3. 由项目内 agent 决定前后端角色分工
+4. 由项目内 skill 决定前端或后端的具体执行口径
+5. 由专项插件补计划、文档、安全和 review
+6. 最后回到项目规则，统一输出验证结果和残余风险
+
+如果换一种更短的说法，就是：
+
+`Prompt -> Flow -> Agent -> Skill -> Plugin -> Project Rules`
+
+其中最重要的不是每次都把这些词说出来，而是让它们各司其职，不要互相替代。
 
 ### 和 claude-md-management 搭配使用
 
@@ -102,6 +155,21 @@
 - 可以理解成：`superpowers` 管方法和流程，`planning-with-files` 管计划文件和执行状态，项目模板管前后端边界和项目细节
 - 如果任务涉及多个阶段、多次会话或多边协作，优先考虑用 `planning-with-files` 固化计划
 
+### 和 webapp-testing 搭配使用
+
+- `webapp-testing` 适合在前后端联调后验证真实页面链路
+- 它特别适合登录、表单、列表、筛选、分页、详情页、导出等关键流程
+- 它不替代项目内 review，也不替代单元测试或接口测试
+- 更合适的定位是：在实现完成和自检之后，补一轮真实页面验证
+- 如果 Claude 环境里已经安装 `playwright` 插件，优先直接用插件做页面验证；Python Playwright 更适合作为备用方案
+
+### Hook 建议
+
+- 当前模板默认保持轻量 hook，先以提醒类 hook 为主
+- 如果后续要扩展 hook，建议按 `minimal / standard / strict` 的分级思路维护
+- 不建议一开始就把测试、格式化、安全、计划、review 全部做成强阻断 hook
+- 更稳的做法是先跑顺 `minimal`，再根据团队节奏逐步升级
+
 ### Codex 下的推荐安装方式
 
 - 按 `superpowers` README 和 Codex 安装说明，它更适合全局安装，而不是拷进项目目录
@@ -123,6 +191,12 @@
 更完整的插件分类和使用方式见：
 - [PLUGIN_GUIDE.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/PLUGIN_GUIDE.md)
 
+项目内 skill 的分类和使用方式见：
+- [SKILL_GUIDE.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/SKILL_GUIDE.md)
+
+技术栈专用增强的扩展方式见：
+- [STACK_EXTENSION_GUIDE.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/STACK_EXTENSION_GUIDE.md)
+
 如果任务只动一边，就只用那一边的 skill 和 agent。
 
 如果任务同时影响前后端，最好先让 Claude 拆边界，再分别处理。
@@ -140,3 +214,5 @@
 如果你已经安装了 `security-guidance`，建议把它作为编辑阶段的安全提醒层使用，帮助尽早发现前后端常见安全风险。
 
 如果你已经安装了 `planning-with-files`，建议在复杂需求、长任务和跨前后端协作时用它来持久化计划和执行状态。
+
+如果你已经安装了 `webapp-testing` 或 Claude `playwright` 插件，建议在前后端联调后、关键页面流程回归时，用它们补一轮真实页面验证；默认优先用插件，Python Playwright 作为备用。
