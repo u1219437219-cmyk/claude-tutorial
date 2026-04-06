@@ -7,6 +7,9 @@
 - 管理后台 + API 服务
 - Web 前后端一起维护的项目
 
+如果你是第一次用这套模板，建议先看：
+- [QUICKSTART.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/QUICKSTART.md)
+
 ## 设计原则
 
 全栈版不直接把“前端版”和“后端版”原样叠加，而是：
@@ -196,6 +199,9 @@
 
 技术栈专用增强的扩展方式见：
 - [STACK_EXTENSION_GUIDE.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/STACK_EXTENSION_GUIDE.md)
+
+第一次接入项目时，优先看：
+- [QUICKSTART.md](/Users/lfs/Desktop/apple-app/claude-tutorial/Claude协作框架V2-全栈版/QUICKSTART.md)
 
 如果任务只动一边，就只用那一边的 skill 和 agent。
 
