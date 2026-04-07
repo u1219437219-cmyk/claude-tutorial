@@ -159,6 +159,27 @@
 - 它不替代项目内已有的 `frontend-review` / `backend-review`
 - 最好的用法是：先按项目内 review 口径自检，再用 `code-review` 做 PR 阶段复查
 
+### GitHub 插件
+
+定位：
+- GitHub 协作层
+
+适合场景：
+- 查看 PR 上下文
+- 处理 review comments
+- 查看 issue 和任务讨论
+- 排查 GitHub Actions / CI
+- 发布 PR 或理解远端协作状态
+
+怎么用：
+- 在需要 PR、issue、review thread、CI 上下文时优先使用
+- 重点不是替代本地 git，而是补远端 GitHub 现场信息
+
+注意：
+- 它不替代项目内 `frontend-review` / `backend-review`
+- 它也不替代 `code-review`
+- 最好的理解方式是：GitHub 插件管协作现场，`code-review` 管自动复查，项目内 review skills 管审查口径
+
 ### security-guidance
 
 定位：

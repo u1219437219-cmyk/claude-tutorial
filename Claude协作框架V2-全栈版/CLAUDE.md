@@ -66,6 +66,7 @@
 - 如果环境里已经安装 `claude-md-management`，在项目规则、目录、命令、技术栈或协作方式发生变化后，主动审计并更新本文件
 - 如果环境里已经安装 `context7`，在查框架、库、工具链、配置项和版本相关 API 时，优先使用它获取最新官方文档和示例
 - 如果环境里已经安装 `code-review`，在 PR 或合并前优先用它做自动化复查，但不要跳过项目内已有的前后端 review 口径
+- 如果环境里已经安装并配置好了 GitHub 插件，在处理 PR、review comments、issue 和 CI 时，优先用它获取 GitHub 上下文
 - 如果环境里已经安装 `security-guidance`，在编辑和实现阶段优先接受它的安全提醒，尽早修正明显的安全风险
 - 如果环境里已经安装 `planning-with-files`，在复杂需求、长任务、跨前后端任务或多次会话推进时，优先把计划持久化到文件中并持续更新状态
 - 如果环境里已经安装 `webapp-testing`，在前后端联调、关键页面流程验证和页面回归检查时，优先用它补真实页面验证
@@ -82,6 +83,7 @@
 - `Agent` 负责角色分工，比如 `frontend-implementer`、`backend-reviewer`
 - `Project Skill` 负责具体执行口径，比如 `frontend-feature`、`backend-bugfix`、`frontend-review`
 - `Plugin / Tool` 负责专项增强，比如文档查询、安全提醒、PR 复查
+- GitHub 协作相关任务优先由 GitHub 插件承接，本地实现和项目规则继续由项目内 skills / agents 承接
 - 本文件负责项目级约束，比如目录、技术栈、边界、默认链路、输出要求
 
 - 如果多层能力同时存在，优先顺序是：任务目标 -> 流程方法 -> 项目角色 -> 项目执行 skill -> 专项插件 -> 项目规则输出
@@ -115,6 +117,12 @@
 - `验证` 阶段里，真实页面流程优先由 `webapp-testing` 承接
 - `修正`：优先根据 `security-guidance`、项目内 review 和 `code-review` 结果补修
 - `总结`：统一按本文件的输出要求回收
+
+## GitHub 协作规则
+
+- 需要理解 PR、issue、review comments、CI 或 GitHub Actions 上下文时，优先从 GitHub 插件获取信息，而不是只看本地分支
+- GitHub 插件负责 GitHub 协作现场；项目内 review skills 负责项目口径；`code-review` 负责 PR 阶段自动复查
+- 处理线上 review comments 或修 CI 时，先确认 GitHub 现场上下文，再决定本地改动
 
 ## 通用开发原则
 

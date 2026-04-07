@@ -40,7 +40,7 @@
 3. `Skill` 层
    负责具体工作方法和口径，比如 `frontend-feature`、`backend-bugfix`、`frontend-review`、`frontend-design`。
 4. `Plugin / Tool` 层
-   负责专项增强，比如 `superpowers` 管流程，`planning-with-files` 管计划文件，`context7` 管官方文档，`security-guidance` 管安全提醒，`code-review` 管 PR 复查。
+   负责专项增强，比如 `superpowers` 管流程，`planning-with-files` 管计划文件，`context7` 管官方文档，`security-guidance` 管安全提醒，`code-review` 管 PR 复查，GitHub 插件管 PR / issue / CI / review comment 协作。
 5. `CLAUDE.md` / 项目规则层
    负责项目目标、目录结构、技术栈、常用命令、前后端边界、默认执行顺序和输出要求。
 
@@ -143,6 +143,13 @@
 - `code-review` 插件更适合在 PR 或合并前做自动化复查
 - 可以理解成：项目内 review skills 管标准，`code-review` 管 PR 阶段的自动执行
 - 如果变更同时涉及前后端，建议先按项目内 review 口径自检，再在 PR 阶段补一轮 `code-review`
+
+### 和 GitHub 插件搭配使用
+
+- GitHub 插件更适合处理 PR、issue、review comments、CI 和 GitHub 上的协作上下文
+- 它不替代本地开发流程，也不替代项目内 `frontend-review` / `backend-review`
+- 更合适的定位是：在需要理解 GitHub 现场信息时，补 GitHub 协作层能力
+- 如果环境已经配置可用，建议在处理 PR 评论、查看 issue、修 CI 和发布 PR 时优先使用
 
 ### 和 security-guidance 搭配使用
 
